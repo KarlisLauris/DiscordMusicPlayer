@@ -10,10 +10,10 @@ module.exports = {
 
 	async execute(interaction) {
         const voiceChannel = interaction.member.voice.channel;
-        if (!voiceChannel) return interaction.reply({ content: 'You need to be in a voice channel to play music!', ephemeral: true });
+        if (!voiceChannel)  return await interaction.reply({ content: 'You need to be in a voice channel to play music!', ephemeral: true });
         const permissions = voiceChannel.permissionsFor(interaction.client.user);
         if (!permissions.has('CONNECT') || !permissions.has('SPEAK')) {
-            return interaction.reply({ content: 'I need the permissions to join and speak in your voice channel!', ephemeral: true })
+            return await interaction.reply({ content: 'I need the permissions to join and speak in your voice channel!', ephemeral: true })
         }
         const url = interaction.options.getString('url');
         
@@ -40,7 +40,7 @@ module.exports = {
             } catch (error) {
                 if (tries == 1) {
                     connection.destroy();
-                    return interaction.reply('An error occurred while trying to play the song.');
+                    return await interaction.reply('An error occurred while trying to play the song.');
                 }
                 tries++;
             }
